@@ -1,0 +1,100 @@
+<div class="row fullsize">
+  <aside class="col-sm-4 automargin" *ngIf="isLogin">
+    <div class="card">
+      <article class="card-body">
+        <h4 class="card-title mb-4 mt-1">Sign in</h4>
+        <form [formGroup]="signinForm" (ngSubmit)="onSignIn()">
+
+          <div class="form-group">
+            <input class="form-control" placeholder="Email" type="email" formControlName="email">
+            <div
+              *ngIf="signinForm.controls.email.invalid && (signinForm.controls.email.dirty || signinForm.controls.email.touched)"
+              class="text-danger">
+              Please enter a valid email
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="form-control" placeholder="Password" type="password" formControlName="password">
+            <div
+              *ngIf="signinForm.controls.password.invalid && (signinForm.controls.password.dirty || signinForm.controls.password.touched)"
+              class="text-danger">
+              Please enter Password
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox">
+              <label> <input type="checkbox"> Remember me </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <p *ngFor="let alert of alerts">
+              <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+            </p>
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="!signinForm.valid"> Login
+            </button>
+          </div>
+
+          <div class="rightText" style="font-size: 12px; color: gray; display: flex">
+            Don't have an account? <p style="color: blue; margin-left: 5px" (click)="switchFormState()">Sign Up</p>
+          </div>
+        </form>
+      </article>
+    </div>
+  </aside>
+  <aside class="col-sm-4 automargin" *ngIf="!isLogin">
+    <div class="card">
+      <article class="card-body">
+        <h4 class="card-title mb-4 mt-1">Sign Up</h4>
+        <form [formGroup]="singupForm" (ngSubmit)="onSignUp()">
+          <div class="form-group">
+            <input class="form-control" placeholder="First Name" type="text" formControlName="firstname">
+            <div
+              *ngIf="singupForm.controls.firstname.invalid && (singupForm.controls.firstname.dirty || singupForm.controls.firstname.touched)"
+              class="text-danger">Please enter first name</div>
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="Last Name" type="text" formControlName="lastname">
+            <div
+              *ngIf="singupForm.controls.lastname.invalid && (singupForm.controls.lastname.dirty || singupForm.controls.lastname.touched)"
+              class="text-danger">Please enter last name</div>
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="Email" type="email" formControlName="email">
+            <div
+              *ngIf="singupForm.controls.email.invalid && (singupForm.controls.email.dirty || singupForm.controls.email.touched)"
+              class="text-danger">Invalid email address</div>
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="Password" type="password" formControlName="password">
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="Confirm Password" type="password"
+              formControlName="confirmpassword">
+            <div
+              *ngIf="singupForm.controls.confirmpassword.invalid && (singupForm.controls.confirmpassword.dirty || singupForm.controls.confirmpassword.touched)"
+              class="text-danger">Invalid passwords or both passwords must match</div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label> <input type="checkbox"> I accept the Terms of Use and Privacy Policy. </label>
+            </div>
+          </div>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+          </p>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="!singupForm.valid"> Register
+            </button>
+          </div>
+
+          <div class="rightText" style="font-size: 12px; color: gray; display: flex">
+            Already have an account? <p style="color: blue; margin-left: 5px" (click)="switchFormState()">Sign in</p>
+          </div>
+        </form>
+      </article>
+    </div>
+  </aside>
+</div>
